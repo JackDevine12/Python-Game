@@ -33,8 +33,12 @@ while not crashed:
         if event.type == pygame.QUIT:
             #Update crashed variable to True to exit the while loop
             crashed = True
-        #Print event variable value
-        print(event)
+    #Fill the game display with the color white
+    gameDisplay.fill(white)
+    #Call the car function to draw the car image on the game display at the specified x and y coordinates
+    car(x,y)
+    #Print event variable value
+    print(event)
     #Fill the game display with a color, in this case white
     pygame.display.update()
     #Set the clock to tick at 60 frames per second
