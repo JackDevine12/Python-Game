@@ -2,8 +2,11 @@
 import pygame
 #Intailise pygame object
 pygame.init()
-#Define game display object, 800px wide and 600px tall
-gameDisplay = pygame.display.set_mode((800,600))
+#Define display width and height variables
+display_width = 800
+display_height = 600
+#Define game display object using the display width and height variables
+gameDisplay = pygame.display.set_mode((display_width,display_height))
 #Define game caption/title of game window
 pygame.display.set_caption('A bit Racey')
 #Initialize clock object to help track time and frames per second
