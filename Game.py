@@ -1,5 +1,6 @@
-#Import pygame module
+#Import pygame module and time module
 import pygame
+import time
 #Intailise pygame object
 pygame.init()
 #Define display width and height variables
@@ -25,6 +26,12 @@ carImg = pygame.image.load('racecar.png')
 def car(x,y):
     #Draw the car image on the game display at the x and y coordinates specified
     gameDisplay.blit(carImg, (x,y))
+#Define a function to create a text surface object using the specified font and text
+def text_objects(text, font):
+    #Create a text surface object using the specified font and text
+    textSurface = font.render(text, True, black)
+    #Return the text surface object and its rectangular area
+    return textSurface, textSurface.get_rect()
 def game_loop():
 #Define the initial x and y coordinates for the car image
     x = (display_width * 0.45)
