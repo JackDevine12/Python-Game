@@ -17,6 +17,14 @@ clock = pygame.time.Clock()
 
 #Create a variable to track if the player has crashed or not
 crashed = False
+carImg = pygame.image.load('racecar.png')
+#Define a function to draw the car image on the game display
+def car(x,y):
+    #Draw the car image on the game display at the x and y coordinates specified
+    gameDisplay.blit(carImg, (x,y))
+#Define the initial x and y coordinates for the car image
+x = (display_width * 0.45)
+y = (display_height * 0.8)
 #While loop to keep the game running until the user crashes
 while not crashed:
     #for loop to check for events that have occured since the last time the loop ran
