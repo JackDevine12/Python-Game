@@ -12,6 +12,9 @@ pygame.display.set_caption('A bit Racey')
 #Define color variables using RGB values
 black = (0,0,0)
 white = (255,255,255)
+red = (255,0,0)
+#Define car width variable
+car_width = 73
 #Initialize clock object to help track time and frames per second
 clock = pygame.time.Clock()
 
