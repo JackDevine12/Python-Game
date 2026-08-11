@@ -25,6 +25,9 @@ def car(x,y):
 #Define the initial x and y coordinates for the car image
 x = (display_width * 0.45)
 y = (display_height * 0.8)
+#Define the initial change in x and car speed variables
+x_change = 0
+car_speed = 0
 #While loop to keep the game running until the user crashes
 while not crashed:
     #for loop to check for events that have occured since the last time the loop ran
@@ -33,6 +36,18 @@ while not crashed:
         if event.type == pygame.QUIT:
             #Update crashed variable to True to exit the while loop
             crashed = True
+        if event.type == pygame.KEYDOWN:
+            #Check if the left arrow key is pressed, if so set x_change to -5 to move the car left
+            if event.key == pygame.K_LEFT:
+                x_change = -5
+            #Check if the right arrow key is pressed, if so set x_change to 5 to move the car right
+            elif event.key == pygame.K_RIGHT:
+                x_change = 5
+        if event.type == pygame.KEYUP:
+            #Check if the left or right arrow key is released, if so set x_change to 0 to stop the car
+            if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+                x_change = 0
+    x += x_change
     #Fill the game display with the color white
     gameDisplay.fill(white)
     #Call the car function to draw the car image on the game display at the specified x and y coordinates
