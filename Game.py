@@ -77,6 +77,8 @@ def game_loop():
     thing_speed = 7
     thing_width = 100
     thing_height = 100
+    thingCount = 0
+    dodged = 0
     #Define a variable to track if the game has exited or not
     gameExit = False
 #While loop to keep the game running until the user crashes
@@ -107,6 +109,8 @@ def game_loop():
         thing_starty += thing_speed
         #Call the car function to draw the car image on the game display at the specified x and y coordinates
         car(x,y)
+        #Call the things_dodged function to display the number of things dodged on the game display
+        things_dodged(dodged)
         #Check if the car has gone off the screen, if so set crashed to True to exit the while loop
         if x > display_width - car_width or x < 0:
             #If the car goes off the screen, call the crash function to display the crash message
@@ -115,6 +119,9 @@ def game_loop():
         if thing_starty > display_height:
             thing_starty = 0 - thing_height
             thing_startx = random.randrange(0,display_width)
+            dodged += 1
+            thing_speed += 1
+            thing_width += (dodged * 1.2)
         #Check if the car has collided with the rectangle, if so set crashed to True to exit the while loop
         if y < thing_starty+thing_height:
             print('y crossover')
