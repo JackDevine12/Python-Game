@@ -27,6 +27,14 @@ carImg = pygame.image.load('racecar.png')
 def things(thingx, thingy, thingw, thingh, color):
     #Draw a rectangle on the game display using the specified x and y coordinates, width, height, and color
     pygame.draw.rect(gameDisplay, color, [thingx, thingy, thingw, thingh])
+#Define a function to display the number of things dodged on the game display
+def things_dodged(count):
+    #Create a font object using the specified font and size
+    font = pygame.font.SysFont(None, 25)
+    #Render the text to be displayed on the game display using the font object and color
+    text = font.render("Dodged: "+str(count), True, black)
+    #Draw the rendered text on the game display at the specified x and y coordinates
+    gameDisplay.blit(text,(0,0))
 #Define a function to draw the car image on the game display
 def car(x,y):
     #Draw the car image on the game display at the x and y coordinates specified
