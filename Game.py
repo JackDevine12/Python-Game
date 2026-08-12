@@ -101,12 +101,21 @@ def game_intro():
             pygame.draw.rect(gameDisplay, bright_green,(150,450,100,50))
         else:
             pygame.draw.rect(gameDisplay, green,(150,450,100,50))
-
+        #Display the text "GO!" on the green button using a smaller font size
+        smallText = pygame.font.Font("freesansbold.ttf",20)
+        textSurf, textRect = text_objects("GO!", smallText)
+        textRect.center = ( (150+(100/2)), (450+(50/2)) )
+        gameDisplay.blit(textSurf, textRect)
         #Check if the mouse cursor is within the bounds of the "Quit" button
         if 550+100 > mouse[0] > 550 and 450 + 50 > mouse[1] > 450:
             pygame.draw.rect(gameDisplay, bright_red,(550,450,100,50))
         else:
             pygame.draw.rect(gameDisplay, red,(550,450,100,50))
+        #Display the text "QUIT" on the red button using a smaller font size
+        smallText = pygame.font.Font("freesansbold.ttf",20)
+        textSurf, textRect = text_objects("QUIT!", smallText)
+        textRect.center = ( (550+(100/2)), (450+(50/2)) )
+        gameDisplay.blit(textSurf, textRect)
         #Update the game display to show the changes made
         pygame.display.update()
         #Set the clock to tick at 15 frames per second
