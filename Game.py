@@ -15,6 +15,7 @@ pygame.display.set_caption('A bit Racey')
 black = (0,0,0)
 white = (255,255,255)
 red = (255,0,0)
+green = (0,255,0)
 #Define car width variable
 car_width = 73
 #Initialize clock object to help track time and frames per second
@@ -90,6 +91,9 @@ def game_intro():
         TextRect.center = ((display_width/2),(display_height/2))
         #Draw the text surface object on the game display at the specified rectangular area
         gameDisplay.blit(TextSurf, TextRect)
+
+        pygame.draw.rect(gameDisplay, green,(150,450,100,50))
+        pygame.draw.rect(gameDisplay, red,(550,450,100,50))
         #Update the game display to show the changes made
         pygame.display.update()
         #Set the clock to tick at 15 frames per second
