@@ -64,6 +64,37 @@ def message_display(text):
 def crash():
     #Call the message_display function to show the "You Crashed" message on the game display
     message_display('You Crashed')
+#Define a function to display the game introduction screen
+def game_intro():
+    #Create a variable to track if the game introduction screen is being displayed
+    intro = True
+    #While loop to keep the game introduction screen displayed until the user exits or starts the game
+    while intro:
+        #for loop to check for events that have occured since the last time the loop ran
+        for event in pygame.event.get():
+            #print the event to the console for debugging purposes
+            print(event)
+            #if the event is a quit event, exit the game
+            if event.type == pygame.QUIT:
+                #Update gameExit variable to True to exit the while loop
+                pygame.quit()
+                #quit the game and close the application
+                quit()
+        #Fill the game display with the color white
+        gameDisplay.fill(white)
+        #Create a font object using the specified font and size
+        largeText = pygame.font.Font('freesansbold.ttf',115)
+        #Call the text_objects function to create a text surface object and its rectangular area
+        TextSurf, TextRect = text_objects("A bit Racey", largeText)
+        #Set the center of the rectangular area to the center of the game display
+        TextRect.center = ((display_width/2),(display_height/2))
+        #Draw the text surface object on the game display at the specified rectangular area
+        gameDisplay.blit(TextSurf, TextRect)
+        #Update the game display to show the changes made
+        pygame.display.update()
+        #Set the clock to tick at 15 frames per second
+        clock.tick(15)
+
 def game_loop():
 #Define the initial x and y coordinates for the car image
     x = (display_width * 0.45)
@@ -133,6 +164,8 @@ def game_loop():
         pygame.display.update()
         #Set the clock to tick at 60 frames per second
         clock.tick(60)
+#Call the game_intro function to display the game introduction screen
+game_intro()
 #Call the game_loop function to start the game
 game_loop()
 #Quit pygame instance
