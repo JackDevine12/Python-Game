@@ -48,6 +48,26 @@ def text_objects(text, font):
     textSurface = font.render(text, True, black)
     #Return the text surface object and its rectangular area
     return textSurface, textSurface.get_rect()
+#Define a function to create a button on the game display
+def button(msg,x,y,w,h,ic,ac,action=None):
+    #Get the current position of the mouse cursor
+    mouse = pygame.mouse.get_pos()
+    click = pygame.mouse.get_pressed()
+    print(click)
+    #Check if the mouse cursor is within the bounds of the button, if so draw the button with the active color, otherwise draw it with the inactive color
+    if x+w > mouse[0] > x and y+h > mouse[1] > y:
+        #Draw the button with the active color using a rectangle with the specified x and y coordinates, width, and height
+        pygame.draw.rect(gameDisplay, ac,(x,y,w,h))
+        if click[0] == 1 and action != None:
+            action()
+    #else draw the button with the inactive color using a rectangle with the specified x and y coordinates, width, and height
+    else:
+        pygame.draw.rect(gameDisplay, ic,(x,y,w,h))
+    #Create a font object using the specified font and size
+    smallText = pygame.font.Font("freesansbold.ttf",20)
+    textSurf, textRect = text_objects(msg, smallText)
+    textRect.center = ( (x+(w/2)), (y+(h/2)) )
+    gameDisplay.blit(textSurf, textRect)
 def message_display(text):
     #Create a font object using the specified font and size
     largeText = pygame.font.Font('freesansbold.ttf',115)
@@ -67,6 +87,12 @@ def message_display(text):
 def crash():
     #Call the message_display function to show the "You Crashed" message on the game display
     message_display('You Crashed')
+
+#Define a function to quit the game cleanly
+def quitgame():
+    pygame.quit()
+    quit()
+
 #Define a function to display the game introduction screen
 def game_intro():
     #Create a variable to track if the game introduction screen is being displayed
@@ -75,8 +101,6 @@ def game_intro():
     while intro:
         #for loop to check for events that have occured since the last time the loop ran
         for event in pygame.event.get():
-            #print the event to the console for debugging purposes
-            print(event)
             #if the event is a quit event, exit the game
             if event.type == pygame.QUIT:
                 #Update gameExit variable to True to exit the while loop
@@ -93,29 +117,8 @@ def game_intro():
         TextRect.center = ((display_width/2),(display_height/2))
         #Draw the text surface object on the game display at the specified rectangular area
         gameDisplay.blit(TextSurf, TextRect)
-        #Mouse position variable to track the current position of the mouse cursor
-        mouse = pygame.mouse.get_pos()
-        #Check if the mouse cursor is within the bounds of the "Play" button
-        if 150+100 > mouse[0] > 150 and 450 + 50 > mouse[1] > 450:
-        #Create a button on the game display using a rectangle with the specified color, x and y coordinates, width, and height
-            pygame.draw.rect(gameDisplay, bright_green,(150,450,100,50))
-        else:
-            pygame.draw.rect(gameDisplay, green,(150,450,100,50))
-        #Display the text "GO!" on the green button using a smaller font size
-        smallText = pygame.font.Font("freesansbold.ttf",20)
-        textSurf, textRect = text_objects("GO!", smallText)
-        textRect.center = ( (150+(100/2)), (450+(50/2)) )
-        gameDisplay.blit(textSurf, textRect)
-        #Check if the mouse cursor is within the bounds of the "Quit" button
-        if 550+100 > mouse[0] > 550 and 450 + 50 > mouse[1] > 450:
-            pygame.draw.rect(gameDisplay, bright_red,(550,450,100,50))
-        else:
-            pygame.draw.rect(gameDisplay, red,(550,450,100,50))
-        #Display the text "QUIT" on the red button using a smaller font size
-        smallText = pygame.font.Font("freesansbold.ttf",20)
-        textSurf, textRect = text_objects("QUIT!", smallText)
-        textRect.center = ( (550+(100/2)), (450+(50/2)) )
-        gameDisplay.blit(textSurf, textRect)
+        button("GO!",150,450,100,50,green,bright_green,game_loop)
+        button("Quit",550,450,100,50,red,bright_red,quitgame)
         #Update the game display to show the changes made
         pygame.display.update()
         #Set the clock to tick at 15 frames per second
