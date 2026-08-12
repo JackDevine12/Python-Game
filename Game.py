@@ -16,6 +16,8 @@ black = (0,0,0)
 white = (255,255,255)
 red = (255,0,0)
 green = (0,255,0)
+bright_red = (200,0,0)
+bright_green = (0,200,0)
 #Define car width variable
 car_width = 73
 #Initialize clock object to help track time and frames per second
@@ -91,9 +93,20 @@ def game_intro():
         TextRect.center = ((display_width/2),(display_height/2))
         #Draw the text surface object on the game display at the specified rectangular area
         gameDisplay.blit(TextSurf, TextRect)
+        #Mouse position variable to track the current position of the mouse cursor
+        mouse = pygame.mouse.get_pos()
+        #Check if the mouse cursor is within the bounds of the "Play" button
+        if 150+100 > mouse[0] > 150 and 450 + 50 > mouse[1] > 450:
+        #Create a button on the game display using a rectangle with the specified color, x and y coordinates, width, and height
+            pygame.draw.rect(gameDisplay, bright_green,(150,450,100,50))
+        else:
+            pygame.draw.rect(gameDisplay, green,(150,450,100,50))
 
-        pygame.draw.rect(gameDisplay, green,(150,450,100,50))
-        pygame.draw.rect(gameDisplay, red,(550,450,100,50))
+        #Check if the mouse cursor is within the bounds of the "Quit" button
+        if 550+100 > mouse[0] > 550 and 450 + 50 > mouse[1] > 450:
+            pygame.draw.rect(gameDisplay, bright_red,(550,450,100,50))
+        else:
+            pygame.draw.rect(gameDisplay, red,(550,450,100,50))
         #Update the game display to show the changes made
         pygame.display.update()
         #Set the clock to tick at 15 frames per second
