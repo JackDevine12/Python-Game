@@ -107,6 +107,13 @@ def game_loop():
         if thing_starty > display_height:
             thing_starty = 0 - thing_height
             thing_startx = random.randrange(0,display_width)
+        #Check if the car has collided with the rectangle, if so set crashed to True to exit the while loop
+        if y < thing_starty+thing_height:
+            print('y crossover')
+            #Check if the car's x coordinate is within the rectangle's x coordinate range, if so call the crash function to display the crash message
+            if x > thing_startx and x < thing_startx + thing_width or x+car_width > thing_startx and x + car_width < thing_startx+thing_width:
+                print('x crossover')
+                crash()
         #Fill the game display with a color, in this case white
         pygame.display.update()
         #Set the clock to tick at 60 frames per second
