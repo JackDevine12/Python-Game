@@ -103,6 +103,10 @@ def game_loop():
         if x > display_width - car_width or x < 0:
             #If the car goes off the screen, call the crash function to display the crash message
             crash()
+        #Check if the rectangle has gone off the screen, if so reset its y coordinate to the top of the screen and set its x coordinate to a random value within the display width
+        if thing_starty > display_height:
+            thing_starty = 0 - thing_height
+            thing_startx = random.randrange(0,display_width)
         #Fill the game display with a color, in this case white
         pygame.display.update()
         #Set the clock to tick at 60 frames per second
