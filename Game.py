@@ -1,6 +1,7 @@
-#Import pygame module and time module
+#Import pygame, time and random modules
 import pygame
 import time
+import random
 #Intailise pygame object
 pygame.init()
 #Define display width and height variables
@@ -22,6 +23,10 @@ clock = pygame.time.Clock()
 #Create a variable to track if the player has crashed or not
 crashed = False
 carImg = pygame.image.load('racecar.png')
+#Define a function to draw a rectangle on the game display
+def things(thingx, thingy, thingw, thingh, color):
+    #Draw a rectangle on the game display using the specified x and y coordinates, width, height, and color
+    pygame.draw.rect(gameDisplay, color, [thingx, thingy, thingw, thingh])
 #Define a function to draw the car image on the game display
 def car(x,y):
     #Draw the car image on the game display at the x and y coordinates specified
@@ -58,6 +63,12 @@ def game_loop():
     #Define the initial change in x and car speed variables
     x_change = 0
     car_speed = 0
+    #Define the initial x and y coordinates, speed, width, and height for the rectangle
+    thing_startx = random.randrange(0, display_width)
+    thing_starty = -600
+    thing_speed = 7
+    thing_width = 100
+    thing_height = 100
     #Define a variable to track if the game has exited or not
     gameExit = False
 #While loop to keep the game running until the user crashes
@@ -83,6 +94,9 @@ def game_loop():
         x += x_change
         #Fill the game display with the color white
         gameDisplay.fill(white)
+        #Call the things function to draw a rectangle on the game display at the specified x and y coordinates, width, height, and color
+        things(thing_startx, thing_starty, thing_width, thing_height, black)
+        thing_starty += thing_speed
         #Call the car function to draw the car image on the game display at the specified x and y coordinates
         car(x,y)
         #Check if the car has gone off the screen, if so set crashed to True to exit the while loop
