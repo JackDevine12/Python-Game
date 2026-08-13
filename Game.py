@@ -23,7 +23,8 @@ car_width = 73
 #Initialize clock object to help track time and frames per second
 clock = pygame.time.Clock()
 
-#Create a variable to track if the player has crashed or not
+#Create a variable to track if the player has crashed or not and if the game is paused or not
+pause = False
 crashed = False
 carImg = pygame.image.load('racecar.png')
 #Define a function to draw a rectangle on the game display
@@ -92,6 +93,37 @@ def crash():
 def quitgame():
     pygame.quit()
     quit()
+#Define a function to pause the game
+def paused():
+    #global pause variable to allow it to be modified within the function
+    global pause
+    #Pause button function to pause the game
+    largeText = pygame.font.SysFont("comicsansms",115)
+    TextSurf, TextRect = text_objects("Paused", largeText)
+    TextRect.center = ((display_width/2),(display_height/2))
+    gameDisplay.blit(TextSurf, TextRect)
+    #Close game loop and enter a while loop to keep the game paused until the user unpauses or quits
+    while pause:
+        for event in pygame.event.get():
+
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+        #gameDisplay.fill(white)
+        #Create buttons for the user to unpause or quit the game
+        button("Continue",150,450,100,50,green,bright_green,unpause)
+        button("Quit",550,450,100,50,red,bright_red,quitgame)
+        #Update the game display to show the changes made
+        pygame.display.update()
+        #Set the clock to tick at 15 frames per second
+        clock.tick(15) 
+#Define a function to unpause the game
+def unpause():
+    #Global pause variable to allow it to be modified within the function
+    global pause
+    #Set pause variable to False to exit the while loop in the paused function and resume the game
+    pause = False 
 
 #Define a function to display the game introduction screen
 def game_intro():
@@ -123,8 +155,10 @@ def game_intro():
         pygame.display.update()
         #Set the clock to tick at 15 frames per second
         clock.tick(15)
-
+#Define a funcction to run the main game loop
 def game_loop():
+    #Define global pause variable to allow it to be modified within the function
+    global pause
 #Define the initial x and y coordinates for the car image
     x = (display_width * 0.45)
     y = (display_height * 0.8)
@@ -157,6 +191,10 @@ def game_loop():
                 #Check if the right arrow key is pressed, if so set x_change to 5 to move the car right
                 elif event.key == pygame.K_RIGHT:
                     x_change = 5
+                #Check if the 'p' key is pressed, if so set pause to True and call the paused function to pause the game
+                elif event.key == pygame.K_p:
+                    pause = True
+                    paused()
             if event.type == pygame.KEYUP:
                 #Check if the left or right arrow key is released, if so set x_change to 0 to stop the car
                 if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
