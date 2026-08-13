@@ -84,10 +84,29 @@ def message_display(text):
     time.sleep(2)
     #Call the game_loop function to restart the game
     game_loop()
-
+#Define a function to handle the crash event when the player crashes into an obstacle
 def crash():
-    #Call the message_display function to show the "You Crashed" message on the game display
-    message_display('You Crashed')
+    #Create a font object using the specified font and size
+    largeText = pygame.font.SysFont("comicsansms",115)
+    TextSurf, TextRect = text_objects("You Crashed", largeText)
+    TextRect.center = ((display_width/2),(display_height/2))
+    gameDisplay.blit(TextSurf, TextRect)
+    #While loop to keep the crash message displayed until the user exits or restarts the game
+    while True:
+        #For loop to check for events that have occured since the last time the loop ran
+        for event in pygame.event.get():
+            #Check if the event is a quit event, if so exit the game
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+                
+        #gameDisplay.fill(white)
+        #Create buttons for the user to restart or quit the game
+        button("Play Again",150,450,100,50,green,bright_green,game_loop)
+        button("Quit",550,450,100,50,red,bright_red,quitgame)
+        #Update the game display to show the changes made
+        pygame.display.update()
+        clock.tick(15) 
 
 #Define a function to quit the game cleanly
 def quitgame():
